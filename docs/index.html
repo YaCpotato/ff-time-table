@@ -5,6 +5,7 @@
     <body>
         <div>
             <p id="RealtimeClockArea2"></p>
+            <p id="ETClockArea2"></p>
         </div>
         <script>
             function set2fig(num) {
@@ -22,7 +23,30 @@
                 var msg = "現在時刻は、" + nowHour + ":" + nowMin + ":" + nowSec + " です。";
                 document.getElementById("RealtimeClockArea2").innerHTML = msg;
             }
-            setInterval('showClock2()',1000);
+            function showETClock() {
+                var date = new Date();
+                var a = date.getTime();
+                var ut = Math.floor(a/1000);
+
+                //エオルゼア時間1/1/1 00:00:00から経過した秒数を求める
+                et_seconds = ut * 60.0 / 175.0
+                //エオルゼア時間1/1/1 00:00:00から経過した時間を求める
+                et_hours = ut / 175.0
+                //エオルゼア時間1/1/1 00:00:00から経過した日数を求める
+                et_days = et_hours / 24.0
+                //エオルゼア時間1/1/1 00:00:00から経過した月数を求める
+                et_months = et_days / 32.0
+                //エオルゼア時間の時刻を計算する
+                et_hour = et_hours % 24.0
+                et_minute = et_seconds % 60.0
+
+                //print("%4d-%02d-%02d %02d:%02d" % (int, int(), int(), int(et_hour), int(et_minute)))
+
+                var msg = "現在ET時刻は、" + set2fig(parseInt(et_hour)) + ":" + set2fig(parseInt(et_minute)) + " です。";
+                document.getElementById("ETClockArea2").innerHTML = msg;
+            }
+            setInterval('showClock2()', 1000);
+            setInterval('showETClock()', 1000)
         </script>
     </body>
 </html>
