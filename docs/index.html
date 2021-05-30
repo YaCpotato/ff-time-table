@@ -7,6 +7,7 @@
             <p id="RealtimeClockArea2"></p>
             <p id="ETClockArea2"></p>
         </div>
+        <div id = "chart-area"></div>
         <script>
             function set2fig(num) {
                 // 桁数が1桁だったら先頭に0を加えて2桁に調整する
@@ -15,7 +16,7 @@
                 else { ret = num; }
                 return ret;
             }
-            function showClock2() {
+            function showClock() {
                 var nowTime = new Date();
                 var nowHour = set2fig( nowTime.getHours() );
                 var nowMin  = set2fig( nowTime.getMinutes() );
@@ -23,7 +24,7 @@
                 var msg = "現在時刻は、" + nowHour + ":" + nowMin + ":" + nowSec + " です。";
                 document.getElementById("RealtimeClockArea2").innerHTML = msg;
             }
-            function showETClock() {
+            function ETClock() {
                 var date = new Date();
                 var a = date.getTime();
                 var ut = Math.floor(a/1000);
@@ -41,11 +42,19 @@
                 et_minute = et_seconds % 60.0
 
                 //print("%4d-%02d-%02d %02d:%02d" % (int, int(), int(), int(et_hour), int(et_minute)))
+                var result = {
+                    hour:parseInt(et_hour),
+                    minute:parseInt(et_minute)
+                }
+                return result
+            }
+            function showETClock() {
+                var et_time = ETClock()
 
-                var msg = "現在ET時刻は、" + set2fig(parseInt(et_hour)) + ":" + set2fig(parseInt(et_minute)) + " です。";
+                var msg = "現在ET時刻は、" + et_time.hour + ":" + et_time.minute + " です。";
                 document.getElementById("ETClockArea2").innerHTML = msg;
             }
-            setInterval('showClock2()', 1000);
+            setInterval('showClock()', 1000);
             setInterval('showETClock()', 1000)
         </script>
     </body>
